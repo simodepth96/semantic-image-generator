@@ -29,16 +29,17 @@ def main():
         preload_images = st.checkbox("Preload Images", value=True)
         lazy_load_images = st.checkbox("Lazy Load Images", value=False)
 
-        # Generate "rel=canonical" links
-        df["Semantic Images"] = df["URL"].apply(
-            lambda image_url: generate_rel_canonical_link(image_url, preload_images, lazy_load_images)
-        )
+        if st.button("Generate Semantic Images"):
+            # Generate "rel=canonical" links
+            df["Semantic Images"] = df["URL"].apply(
+                lambda image_url: generate_rel_canonical_link(image_url, preload_images, lazy_load_images)
+            )
 
-        # Save output to Excel
-        output_filename = "semantic_pictures.xlsx"
-        output_excel = df.to_excel(index=False, engine='openpyxl')
-        
-        st.markdown(f"### Download Generated File: [{output_filename}](data:application/vnd.openxmlformats-officedocument.spreadsheetml.sheet;base64,{output_excel})")
+            # Save output to Excel
+            output_filename = "semantic_pictures.xlsx"
+            output_excel = df.to_excel(index=False, engine='openpyxl')
+
+            st.markdown(f"### Download Generated File: [{output_filename}](data:application/vnd.openxmlformats-officedocument.spreadsheetml.sheet;base64,{output_excel})")
 
 if __name__ == "__main__":
     main()
