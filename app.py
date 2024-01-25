@@ -1,8 +1,9 @@
 import pandas as pd
 import streamlit as st
+import base64
 
 def generate_rel_canonical_link(image_url, preload_images, lazy_load_images):
-    img_loading = 'eager' if preload_images else 'lazy'
+    img_loading = 'eager' if preload_images else 'lazy' if lazy_load_images else 'auto'
     return (
         '<picture>\n'
         '  <source media="(min-width:1400px)" srcset="/1080.jpg 1x, /1440.jpg 1.5x, /2160.jpg 2x">\n'
@@ -29,7 +30,9 @@ def main():
         preload_images = st.checkbox("Preload Images", value=True)
         lazy_load_images = st.checkbox("Lazy Load Images", value=False)
 
-        if st.button("Generate Semantic Images"):
+        if preload_images and lazy_load_images:
+            st.warning("Please choose only one option: Preload Images OR Lazy Load Images.")
+        elif st.button("Generate Semantic Images"):
             # Generate "rel=canonical" links
             df["Semantic Images"] = df["URL"].apply(
                 lambda image_url: generate_rel_canonical_link(image_url, preload_images, lazy_load_images)
@@ -39,7 +42,10 @@ def main():
             output_filename = "semantic_pictures.xlsx"
             output_excel = df.to_excel(index=False, engine='openpyxl')
 
-            st.markdown(f"### Download Generated File: [{output_filename}](data:application/vnd.openxmlformats-officedocument.spreadsheetml.sheet;base64,{output_excel})")
+            # Create a link for downloading the Excel file
+            b64 = base64.b64encode(output_excel.encode()).decode()
+            href = f'<a href="data:application/vnd.openxmlformats-officedocument.spreadsheetml.sheet;base64,{b64}" download="{output_filename}">Download {output_filename}</a>'
+            st.markdown(href, unsafe_allow_html=True)
 
 if __name__ == "__main__":
     main()
