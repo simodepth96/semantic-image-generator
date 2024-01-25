@@ -1,5 +1,6 @@
 import pandas as pd
 import streamlit as st
+from io import BytesIO
 import base64
 
 def generate_rel_canonical_link(image_url, preload_images, lazy_load_images):
@@ -40,10 +41,12 @@ def main():
 
             # Save output to Excel
             output_filename = "semantic_pictures.xlsx"
-            output_excel = df.to_excel(index=False, engine='openpyxl')
+            output_excel = BytesIO()
+            df.to_excel(output_excel, index=False, engine='openpyxl')
+            output_excel.seek(0)
 
             # Create a link for downloading the Excel file
-            b64 = base64.b64encode(output_excel.encode()).decode()
+            b64 = base64.b64encode(output_excel.read()).decode()
             href = f'<a href="data:application/vnd.openxmlformats-officedocument.spreadsheetml.sheet;base64,{b64}" download="{output_filename}">Download {output_filename}</a>'
             st.markdown(href, unsafe_allow_html=True)
 
