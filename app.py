@@ -4,7 +4,7 @@ from io import BytesIO
 import base64
 
 def generate_rel_canonical_link(image_url, preload_images, lazy_load_images):
-    img_loading = '"eager"' fetchpriority="high"' if preload_images else 'lazy' if lazy_load_images else 'auto'
+    img_loading = '"eager" fetchpriority="high"' if preload_images else 'lazy' if lazy_load_images else 'auto'
     return (
         '<picture>\n'
         '  <source media="(min-width:1400px)" srcset="/1080.jpg 1x, /1440.jpg 1.5x, /2160.jpg 2x">\n'
