@@ -17,6 +17,7 @@ def generate_rel_canonical_link(image_url, preload_images, lazy_load_images):
 
 def main():
     st.title("Semantic Pictures Generator")
+    st.write("Please choose only one option: Preload Images OR Lazy Load Images.")
 
     # File uploader
     uploaded_file = st.file_uploader("Upload a CSV or XLSX file", type=["csv", "xlsx"])
