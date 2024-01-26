@@ -17,7 +17,8 @@ def generate_rel_canonical_link(image_url, preload_images, lazy_load_images):
 
 def main():
     st.title("Semantic Pictures Generator")
-    st.write("Please choose only one option: Preload Images OR Lazy Load Images.")
+    st.write("Please upload an XLSX/CSV file exported from Screaming Frog:\n
+    <i> Images > Missing Images > Export")
 
     # File uploader
     uploaded_file = st.file_uploader("Upload a CSV or XLSX file", type=["csv", "xlsx"])
