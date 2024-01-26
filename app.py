@@ -19,8 +19,8 @@ def main():
     st.title("Semantic Pictures Generator")
     st.write("Please upload an XLSX/CSV file exported from Screaming Frog:")
     st.write("- Images > Missing Images > Export")
-    st.write("Open the file > eliminate all headers but the Address > Rename Address as URL")
-    st.write("Upload to app")
+    st.write("- Open the file > eliminate all headers but the Address > Rename Address as URL")
+    st.write("- Upload to app")
     
     # File uploader
     uploaded_file = st.file_uploader("Upload a CSV or XLSX file", type=["csv", "xlsx"])
