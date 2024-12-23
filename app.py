@@ -15,7 +15,6 @@ def generate_rel_canonical_link(image_url, preload_images, lazy_load_images):
         '</picture>'
     )
 
-
 st.title("Semantic Pictures Generator")
 st.markdown(
     "A tool grounded in basic Python to convert image URLs into state-of-the-art semantic HTML attributes to enhance search engine understanding of your visual content."
@@ -33,38 +32,38 @@ st.sidebar.markdown(
     - Upload the modified file to the app.
     """
 )
-    
-    # File uploader
-    uploaded_file = st.file_uploader("Upload a CSV or XLSX file", type=["csv", "xlsx"])
 
-    if uploaded_file is not None:
-        df = pd.read_excel(uploaded_file) if uploaded_file.name.endswith('xlsx') else pd.read_csv(uploaded_file)
+# File uploader
+uploaded_file = st.file_uploader("Upload a CSV or XLSX file", type=["csv", "xlsx"])
 
-        # Display the dataframe
-        st.dataframe(df.head())
+if uploaded_file is not None:
+    df = pd.read_excel(uploaded_file) if uploaded_file.name.endswith('xlsx') else pd.read_csv(uploaded_file)
 
-        # User options
-        preload_images = st.checkbox("Preload Images", value=True)
-        lazy_load_images = st.checkbox("Lazy Load Images", value=False)
+    # Display the dataframe
+    st.dataframe(df.head())
 
-        if preload_images and lazy_load_images:
-            st.warning("Please choose only one option: Preload Images OR Lazy Load Images.")
-        elif st.button("Generate Semantic Images"):
-            # Generate "rel=canonical" links
-            df["Semantic Images"] = df["URL"].apply(
-                lambda image_url: generate_rel_canonical_link(image_url, preload_images, lazy_load_images)
-            )
+    # User options
+    preload_images = st.checkbox("Preload Images", value=True)
+    lazy_load_images = st.checkbox("Lazy Load Images", value=False)
 
-            # Save output to Excel
-            output_filename = "semantic_pictures.xlsx"
-            output_excel = BytesIO()
-            df.to_excel(output_excel, index=False, engine='openpyxl')
-            output_excel.seek(0)
+    if preload_images and lazy_load_images:
+        st.warning("Please choose only one option: Preload Images OR Lazy Load Images.")
+    elif st.button("Generate Semantic Images"):
+        # Generate "rel=canonical" links
+        df["Semantic Images"] = df["URL"].apply(
+            lambda image_url: generate_rel_canonical_link(image_url, preload_images, lazy_load_images)
+        )
 
-            # Create a link for downloading the Excel file
-            b64 = base64.b64encode(output_excel.read()).decode()
-            href = f'<a href="data:application/vnd.openxmlformats-officedocument.spreadsheetml.sheet;base64,{b64}" download="{output_filename}">Download {output_filename}</a>'
-            st.markdown(href, unsafe_allow_html=True)
+        # Save output to Excel
+        output_filename = "semantic_pictures.xlsx"
+        output_excel = BytesIO()
+        df.to_excel(output_excel, index=False, engine='openpyxl')
+        output_excel.seek(0)
+
+        # Create a link for downloading the Excel file
+        b64 = base64.b64encode(output_excel.read()).decode()
+        href = f'<a href="data:application/vnd.openxmlformats-officedocument.spreadsheetml.sheet;base64,{b64}" download="{output_filename}">Download {output_filename}</a>'
+        st.markdown(href, unsafe_allow_html=True)
 
 if __name__ == "__main__":
-    main()
+    pass
