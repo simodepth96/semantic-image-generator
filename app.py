@@ -16,10 +16,11 @@ def generate_rel_canonical_link(image_url, preload_images, lazy_load_images):
     )
 
 st.title("Semantic Pictures Generator")
-st.markdown(
-    "A tool grounded in basic Python to convert image URLs into state-of-the-art semantic HTML attributes to enhance search engine understanding of your visual content."
-    "Once the input file has been uploaded you can choose between eagerly loading images or lazy loading them according to your needs"
-)
+st.write(
+    "A tool grounded in basic Python to convert image URLs into state-of-the-art semantic HTML attributes to enhance search engine understanding of your visual content.")
+st.write(
+    "Once the input file has been uploaded you can choose between eagerly loading images or lazy loading them according to your needs")
+
 st.sidebar.subheader(
     "🎯 How to Use"
 )
