@@ -15,24 +15,24 @@ def generate_rel_canonical_link(image_url, preload_images, lazy_load_images):
         '</picture>'
     )
 
-def main():
-    st.title("Semantic Pictures Generator")
-    st.markdown(
-        "A tool grounded in basic Python to convert image URLs into state-of-the-art semantic HTML attributes to enhance search engine understanding of your visual content."
-        "Once the input file has been uploaded you can choose between eagerly loading images or lazy loading them according to your needs".)
 
-    st.sidebar.subheader(
-        "🎯 How to Use"
-    )
-    st.sidebar.markdown(
-        """
-        - Upload an XLSX/CSV file exported from Screaming Frog.
-        - Navigate to Images > Missing Images > Export in Screaming Frog.
-        - Open the file and eliminate all headers except for "Address"
-        - Rename the "Address" column as "URL".
-        - Upload the modified file to the app.
-        """
-    )
+st.title("Semantic Pictures Generator")
+st.markdown(
+    "A tool grounded in basic Python to convert image URLs into state-of-the-art semantic HTML attributes to enhance search engine understanding of your visual content."
+    "Once the input file has been uploaded you can choose between eagerly loading images or lazy loading them according to your needs"
+)
+st.sidebar.subheader(
+    "🎯 How to Use"
+)
+st.sidebar.markdown(
+    """
+    - Upload an XLSX/CSV file exported from Screaming Frog.
+    - Navigate to Images > Missing Images > Export in Screaming Frog.
+    - Open the file and eliminate all headers except for "Address"
+    - Rename the "Address" column as "URL".
+    - Upload the modified file to the app.
+    """
+)
     
     # File uploader
     uploaded_file = st.file_uploader("Upload a CSV or XLSX file", type=["csv", "xlsx"])
